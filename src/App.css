@@ -54,3 +54,17 @@
 .classStatus.eligible {
   background-color: green;
 }
+
+.skill-row{
+  display:flex;
+}
+
+.skill-name{
+  font-weight: bold;
+  width: 200px;
+}
+
+.skill-adjust{
+  display: flex;
+  gap: 5px;
+}

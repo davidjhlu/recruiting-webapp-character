@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { ATTRIBUTE_LIST } from './consts';
 import AttributesManager from './AttributesManager';
+import SkillsManager from './SkillsManager';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             </header>
             <section className="App-section">
                 <AttributesManager attributes={attributes} onAttributeChange={handleAttributeChange}></AttributesManager>
+                <SkillsManager attributes={attributes} />
             </section>
         </div>
     );
