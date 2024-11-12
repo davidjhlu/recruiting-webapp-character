@@ -44,7 +44,7 @@ const AttributesManager: React.FC<AttributesProps> = ({
                             <div>
                                 <button onClick={() => decrementAttribute(attribute)}>-</button>
                                 <button onClick={() => incrementAttribute(attribute)}>+</button>
-                                <span>&nbsp; {attributes[attribute]}</span>
+                                <span>&nbsp; {attributes[attribute]} / Modifier: {Math.floor((attributes[attribute]-10)/2)} </span>
                             </div>
                         </div>
                     ))}
