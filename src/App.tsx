@@ -4,6 +4,7 @@ import { ATTRIBUTE_LIST } from './consts';
 import AttributesManager from './AttributesManager';
 import SkillsManager from './SkillsManager';
 
+const MAX_POINTS = 70;
 
 function App() {
     // state for attr, init 10
@@ -11,9 +12,17 @@ function App() {
         Object.fromEntries(ATTRIBUTE_LIST.map(attr => [attr, 10]))
     );
 
+    //calculate attribute total
+    const getTotalPoints = () => {
+        return Object.values(attributes).reduce((sum, value) => sum + value, 0);
+    };
+
     //attribute adjust
     const handleAttributeChange = (attribute: string, newVal: number) => {
-        if(newVal >= 0){
+        const diff = newVal - attributes[attribute];
+        const newTotal = getTotalPoints() + diff;
+
+        if(newVal >= 0 && newTotal <= MAX_POINTS){
             setAttributes(prev => ({
                 ...prev,
                 [attribute]: newVal
@@ -21,13 +30,14 @@ function App() {
         }
     };
 
-    
+    const totalPoints = getTotalPoints();
   
     return (
         <div className="App">
             <header className="App-header">
                 <p>Character Sheet</p>
             </header>
+            <p>Total points used: {totalPoints} / {MAX_POINTS}</p>
             <section className="App-section">
                 <AttributesManager attributes={attributes} onAttributeChange={handleAttributeChange}></AttributesManager>
                 <SkillsManager attributes={attributes} />
