@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ATTRIBUTE_LIST } from './consts';
+import { ATTRIBUTE_LIST, CLASS_LIST } from './consts';
 import './App.css';
 
 interface AttributesProps {
@@ -12,6 +12,9 @@ const AttributesManager: React.FC<AttributesProps> = ({
     onAttributeChange
 }) => {
 
+    //class state
+    const [selectedClass, setSelectedClass] = useState<string | null>();
+
     //increment att
     const incrementAttribute = (attribute: string) => {
         onAttributeChange(attribute, attributes[attribute] + 1);
@@ -20,6 +23,14 @@ const AttributesManager: React.FC<AttributesProps> = ({
     //decrement att
     const decrementAttribute = (attribute: string) => {
         onAttributeChange(attribute, attributes[attribute] - 1);
+    }
+
+    //class 
+    const classRequirements = (className: string) => {
+        const req = CLASS_LIST[className as keyof typeof CLASS_LIST];
+        return Object.entries(req).every(
+            ([attribute, minVal]) => attributes[attribute] >= minVal
+        );
     }
 
 
@@ -39,6 +50,30 @@ const AttributesManager: React.FC<AttributesProps> = ({
                     ))}
                 </div>
             </section>
+
+            <div>
+                {Object.keys(CLASS_LIST).map((className) => (
+                    <div 
+                    key={className} 
+                    className={` classStatus ${classRequirements(className) ? 'eligible' : ''}`}
+                    onClick={() => setSelectedClass(className)}
+                    style={{ cursor: 'pointer' }}
+                    >
+                    <h3>{className}</h3>
+                    </div>
+                ))}
+            </div>
+            {selectedClass && (
+                <div>
+                    <h2>{selectedClass} requirements</h2>
+                    <div>
+                        {Object.entries(CLASS_LIST[selectedClass]).map(([attribute, minVal]: [string, number]) => (
+                            <p key={attribute}> {attribute}: {minVal}</p>
+                        ))}
+                    </div>
+                </div>
+            )}
+
         </>
     );
     

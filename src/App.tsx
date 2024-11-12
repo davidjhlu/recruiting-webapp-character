@@ -7,7 +7,7 @@ import AttributesManager from './AttributesManager';
 function App() {
     // state for attr, init 10
     const [attributes, setAttributes] = useState<Record<string, number>>(
-        Object.fromEntries(ATTRIBUTE_LIST.map(attr => [attr, 0]))
+        Object.fromEntries(ATTRIBUTE_LIST.map(attr => [attr, 10]))
     );
 
     //attribute adjust
@@ -29,8 +29,6 @@ function App() {
             </header>
             <section className="App-section">
                 <AttributesManager attributes={attributes} onAttributeChange={handleAttributeChange}></AttributesManager>
-                <div>
-                </div>
             </section>
         </div>
     );
