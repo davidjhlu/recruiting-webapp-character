@@ -1,25 +1,39 @@
 import { useState } from 'react';
 import './App.css';
-import { ATTRIBUTE_LIST, CLASS_LIST, SKILL_LIST } from './consts.js';
+import { ATTRIBUTE_LIST } from './consts';
+import AttributesManager from './AttributesManager';
 
 
 function App() {
-  const [num, setNum] = useState<number>(0);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>React Coding Exercise</h1>
-      </header>
-      <section className="App-section">
-        <div>
-          Value:
-          {num}
-          <button>+</button>
-          <button>-</button>
+    // state for attr, init 10
+    const [attributes, setAttributes] = useState<Record<string, number>>(
+        Object.fromEntries(ATTRIBUTE_LIST.map(attr => [attr, 0]))
+    );
+
+    //attribute adjust
+    const handleAttributeChange = (attribute: string, newVal: number) => {
+        if(newVal >= 0){
+            setAttributes(prev => ({
+                ...prev,
+                [attribute]: newVal
+            }));
+        }
+    };
+
+    
+  
+    return (
+        <div className="App">
+            <header className="App-header">
+                <p>Character Sheet</p>
+            </header>
+            <section className="App-section">
+                <AttributesManager attributes={attributes} onAttributeChange={handleAttributeChange}></AttributesManager>
+                <div>
+                </div>
+            </section>
         </div>
-      </section>
-    </div>
-  );
+    );
 }
 
 export default App;
