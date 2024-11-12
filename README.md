@@ -1,5 +1,7 @@
 # recruiting-webapp-character
-React coding test
+React coding test - David Lu
+Up to part 7 functionality, part 6 post request works and testing the get request works too, but skillpoints aren't saved.
+Could not get around to loading.
 
 # Create a repository from this template
 - Click on `Use this template` dropdown on this repo page.
